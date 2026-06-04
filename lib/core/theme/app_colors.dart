@@ -3,79 +3,75 @@ import 'package:flutter/material.dart';
 class AppColors {
   const AppColors._();
 
-  // Brand
-  static const Color primary = Color(0xFF2563EB);       // Bold blue
-  static const Color primaryLight = Color(0xFF3B82F6);
-  static const Color primaryDark = Color(0xFF1D4ED8);
-  static const Color secondary = Color(0xFF0EA5E9);     // Sky
-  static const Color tertiary = Color(0xFF8B5CF6);      // Violet accent
+  // Brand — purple/violet matching reference
+  static const Color primary = Color(0xFF6C63FF);
+  static const Color primaryLight = Color(0xFF8B85FF);
+  static const Color primaryDark = Color(0xFF4B44CC);
+  static const Color primarySurface = Color(0xFFEEEDFF);
 
   // Surface
-  static const Color background = Color(0xFFF8FAFC);
+  static const Color background = Color(0xFFF8F8FF);
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFF1F5F9);
-  static const Color surfaceContainer = Color(0xFFE2E8F0);
+  static const Color surfaceVariant = Color(0xFFF3F3FB);
+  static const Color surfaceContainer = Color(0xFFEAEAF5);
 
   // Priority
-  static const Color priorityHigh = Color(0xFFEF4444);       // Red
-  static const Color priorityHighLight = Color(0xFFFEF2F2);
-  static const Color priorityMedium = Color(0xFFF97316);     // Orange
-  static const Color priorityMediumLight = Color(0xFFFFF7ED);
-  static const Color priorityLow = Color(0xFF22C55E);        // Green
-  static const Color priorityLowLight = Color(0xFFF0FDF4);
+  static const Color priorityHigh = Color(0xFFFF5C5C);
+  static const Color priorityHighLight = Color(0xFFFFEEEE);
+  static const Color priorityMedium = Color(0xFFFF9F43);
+  static const Color priorityMediumLight = Color(0xFFFFF3E8);
+  static const Color priorityLow = Color(0xFF26C6A2);
+  static const Color priorityLowLight = Color(0xFFE8FAF6);
 
   // Status
-  static const Color success = Color(0xFF16A34A);
-  static const Color successLight = Color(0xFFDCFCE7);
-  static const Color error = Color(0xFFDC2626);
-  static const Color errorLight = Color(0xFFFEE2E2);
-  static const Color warning = Color(0xFFD97706);
-  static const Color warningLight = Color(0xFFFEF3C7);
-  static const Color info = Color(0xFF0284C7);
-  static const Color infoLight = Color(0xFFE0F2FE);
+  static const Color success = Color(0xFF26C6A2);
+  static const Color successLight = Color(0xFFE8FAF6);
+  static const Color error = Color(0xFFFF5C5C);
+  static const Color errorLight = Color(0xFFFFEEEE);
+  static const Color warning = Color(0xFFFF9F43);
+  static const Color warningLight = Color(0xFFFFF3E8);
 
   // Text
-  static const Color textPrimary = Color(0xFF0F172A);
-  static const Color textSecondary = Color(0xFF475569);
-  static const Color textTertiary = Color(0xFF94A3B8);
+  static const Color textPrimary = Color(0xFF1A1A2E);
+  static const Color textSecondary = Color(0xFF6B6B8A);
+  static const Color textTertiary = Color(0xFFAAAAAC);
   static const Color textOnPrimary = Color(0xFFFFFFFF);
-  static const Color textDisabled = Color(0xFFCBD5E1);
+  static const Color textDisabled = Color(0xFFCCCCDD);
 
   // Border
-  static const Color border = Color(0xFFE2E8F0);
-  static const Color borderFocused = Color(0xFF2563EB);
+  static const Color border = Color(0xFFEAEAF5);
+  static const Color borderFocused = Color(0xFF6C63FF);
 
-  // Completed task
-  static const Color completedOverlay = Color(0x80FFFFFF);
-  static const Color completedText = Color(0xFF94A3B8);
+  // Completed
+  static const Color completedText = Color(0xFFAAAAAC);
 
-  // Dark theme
-  static const Color darkBackground = Color(0xFF0F172A);
-  static const Color darkSurface = Color(0xFF1E293B);
-  static const Color darkSurfaceVariant = Color(0xFF334155);
-  static const Color darkBorder = Color(0xFF334155);
-  static const Color darkTextPrimary = Color(0xFFF8FAFC);
-  static const Color darkTextSecondary = Color(0xFFCBD5E1);
-  static const Color darkTextTertiary = Color(0xFF64748B);
+  // Dark
+  static const Color darkBackground = Color(0xFF12122A);
+  static const Color darkSurface = Color(0xFF1E1E3A);
+  static const Color darkSurfaceVariant = Color(0xFF2A2A4A);
+  static const Color darkBorder = Color(0xFF2E2E50);
+  static const Color darkTextPrimary = Color(0xFFF0F0FF);
+  static const Color darkTextSecondary = Color(0xFFAAAAAC);
+  static const Color darkTextTertiary = Color(0xFF6B6B8A);
 
   static ColorScheme get lightColorScheme => ColorScheme(
         brightness: Brightness.light,
         primary: primary,
         onPrimary: textOnPrimary,
-        primaryContainer: Color(0xFFDBEAFE),
+        primaryContainer: primarySurface,
         onPrimaryContainer: primaryDark,
-        secondary: secondary,
+        secondary: Color(0xFF26C6A2),
         onSecondary: textOnPrimary,
-        secondaryContainer: Color(0xFFE0F2FE),
-        onSecondaryContainer: Color(0xFF0369A1),
-        tertiary: tertiary,
+        secondaryContainer: successLight,
+        onSecondaryContainer: Color(0xFF1A8A72),
+        tertiary: Color(0xFFFF9F43),
         onTertiary: textOnPrimary,
-        tertiaryContainer: Color(0xFFEDE9FE),
-        onTertiaryContainer: Color(0xFF6D28D9),
+        tertiaryContainer: warningLight,
+        onTertiaryContainer: Color(0xFFCC7A2A),
         error: error,
         onError: textOnPrimary,
         errorContainer: errorLight,
-        onErrorContainer: Color(0xFF991B1B),
+        onErrorContainer: Color(0xFFCC3333),
         surface: surface,
         onSurface: textPrimary,
         surfaceContainerHighest: surfaceVariant,
@@ -92,27 +88,27 @@ class AppColors {
   static ColorScheme get darkColorScheme => ColorScheme(
         brightness: Brightness.dark,
         primary: primaryLight,
-        onPrimary: Color(0xFF1E3A8A),
+        onPrimary: Color(0xFF1A1A2E),
         primaryContainer: primaryDark,
-        onPrimaryContainer: Color(0xFFBFDBFE),
-        secondary: secondary,
-        onSecondary: Color(0xFF0C4A6E),
-        secondaryContainer: Color(0xFF075985),
-        onSecondaryContainer: Color(0xFFBAE6FD),
-        tertiary: Color(0xFFA78BFA),
-        onTertiary: Color(0xFF4C1D95),
-        tertiaryContainer: Color(0xFF5B21B6),
-        onTertiaryContainer: Color(0xFFEDE9FE),
-        error: Color(0xFFF87171),
-        onError: Color(0xFF7F1D1D),
-        errorContainer: Color(0xFF991B1B),
-        onErrorContainer: Color(0xFFFEE2E2),
+        onPrimaryContainer: primarySurface,
+        secondary: success,
+        onSecondary: Color(0xFF1A1A2E),
+        secondaryContainer: Color(0xFF1A5A4A),
+        onSecondaryContainer: successLight,
+        tertiary: warning,
+        onTertiary: Color(0xFF1A1A2E),
+        tertiaryContainer: Color(0xFF5A3A1A),
+        onTertiaryContainer: warningLight,
+        error: Color(0xFFFF8080),
+        onError: Color(0xFF1A1A2E),
+        errorContainer: Color(0xFF5A1A1A),
+        onErrorContainer: errorLight,
         surface: darkSurface,
         onSurface: darkTextPrimary,
         surfaceContainerHighest: darkSurfaceVariant,
         onSurfaceVariant: darkTextSecondary,
         outline: darkBorder,
-        outlineVariant: Color(0xFF1E293B),
+        outlineVariant: Color(0xFF1E1E3A),
         shadow: Color(0xFF000000),
         scrim: Color(0xFF000000),
         inverseSurface: surface,
