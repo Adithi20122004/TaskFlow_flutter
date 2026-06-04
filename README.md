@@ -31,16 +31,28 @@ A task management app for gig workers, built with **Flutter**, **Firebase**, and
 ## Architecture
 
 This app follows **Clean Architecture** with three layers:
+
+```text
 lib/
-├── core/                  # Constants, theme, utilities
-├── data/                  # Models, Firestore data sources, repository implementations
-├── domain/                # Entities, abstract repository interfaces, use cases
-└── presentation/          # BLoC, pages, widgets
+├── core/
+│   ├── constants/
+│   ├── theme/
+│   └── utils/
+├── data/
+│   ├── models/
+│   ├── sources/
+│   └── repositories/
+├── domain/
+│   ├── entities/
+│   ├── repos/
+│   └── usecases/
+└── presentation/
+    ├── auth/
+    └── tasks/
+```
 
-State management is handled with **flutter_bloc**. Dependency injection uses **get_it + injectable**.
-
----
-
+State management is handled with **flutter_bloc**.
+Dependency injection uses **get_it + injectable**.
 ## Tech Stack
 
 | Layer | Technology |
