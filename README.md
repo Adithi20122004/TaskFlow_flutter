@@ -31,6 +31,7 @@ A task management app for gig workers, built with **Flutter**, **Firebase**, and
 ## Architecture
 
 This app follows **Clean Architecture** with three layers:
+
 lib/
 ├── core/                  # Constants, theme, utilities
 ├── data/                  # Models, Firestore data sources, repository implementations
