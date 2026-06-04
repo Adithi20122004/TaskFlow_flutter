@@ -30,28 +30,16 @@ A task management app for gig workers, built with **Flutter**, **Firebase**, and
 
 ## Architecture
 
-This app follows **Clean Architecture** with three layers:
+TaskFlow follows **Clean Architecture**, separating business logic, data access, and presentation concerns.
 
-```text
-lib/
-├── core/
-│   ├── constants/
-│   ├── theme/
-│   └── utils/
-├── data/
-│   ├── models/
-│   ├── sources/
-│   └── repositories/
-├── domain/
-│   ├── entities/
-│   ├── repos/
-│   └── usecases/
-└── presentation/
-    ├── auth/
-    └── tasks/
-```
+| Layer | Responsibility |
+|---------|---------------|
+| Core | Constants, theme, utilities, shared helpers |
+| Data | Models, Firestore data sources, repository implementations |
+| Domain | Entities, repository contracts, use cases |
+| Presentation | BLoC, screens, widgets, UI logic |
 
-State management is handled with **flutter_bloc**.
+State management is handled using **flutter_bloc**.
 Dependency injection uses **get_it + injectable**.
 ## Tech Stack
 
@@ -99,6 +87,7 @@ Dependency injection uses **get_it + injectable**.
 ### Firestore Security Rules
 
 Make sure your Firestore rules only allow users to access their own tasks:
+```javascript
 rules_version = '2';
 service cloud.firestore {
 match /databases/{database}/documents {
@@ -114,32 +103,34 @@ allow read, write: if request.auth != null
 }
 }
 }
-
+```
 ---
 
 ## Project Structure
+
+```text
 lib/
 ├── core/
 │   ├── constants/         # App strings, route names, Firestore collection names
 │   ├── theme/             # AppTheme, AppColors
 │   └── utils/             # Validators, date formatters
 ├── data/
-│   ├── models/            # TaskModel, UserModel (Firestore serialization)
+│   ├── models/            # TaskModel, UserModel
 │   └── repositories/      # AuthRepositoryImpl, TaskRepositoryImpl
 ├── domain/
 │   ├── entities/          # TaskEntity, UserEntity
 │   ├── repositories/      # Abstract interfaces
-│   └── usecases/          # (optional use case wrappers)
+│   └── usecases/          # Business logic
 └── presentation/
-├── auth/
-│   ├── bloc/           # AuthBloc, AuthEvent, AuthState
-│   ├── pages/          # LoginPage, RegisterPage
-│   └── widgets/        # AuthTextField, etc.
-└── tasks/
-├── bloc/           # TaskBloc, TaskEvent, TaskState
-├── pages/          # HomePage, AddTaskPage, TaskDetailPage
-└── widgets/        # TaskCard, FilterChips, PriorityBadge
-
+    ├── auth/
+    │   ├── bloc/          # AuthBloc, AuthEvent, AuthState
+    │   ├── screens/       # LoginScreen, RegisterScreen
+    │   └── widgets/       # AuthTextField, etc.
+    └── tasks/
+        ├── bloc/          # TaskBloc, TaskEvent, TaskState
+        ├── screens/       # HomePage, AddTaskPage, TaskDetailPage
+        └── widgets/       # TaskCard, FilterChips, PriorityBadge
+```
 ---
 
 ## Author
