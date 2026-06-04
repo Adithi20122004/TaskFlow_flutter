@@ -1,17 +1,136 @@
-# taskflow
+# TaskFlow 🗂️
 
-A new Flutter project.
+A task management app for gig workers, built with **Flutter**, **Firebase**, and **Clean Architecture**.
+
+> Built as part of the WhatBytes Flutter Developer Intern assignment.
+
+---
+
+## Screenshots
+
+| Login | Home | Add Task | Task Detail |
+|-------|------|----------|-------------|
+| ![login](assets/images/screenshot_login.png) | ![home](assets/images/screenshot_home.png) | ![add](assets/images/screenshot_add.png) | ![detail](assets/images/screenshot_detail.png) |
+
+---
+
+## Features
+
+- 🔐 Firebase Authentication (register, login, logout, error handling)
+- ✅ Create, edit, delete, and view tasks
+- 🏷️ Priority levels: Low, Medium, High
+- 📅 Due date with overdue highlighting
+- 🔄 Mark tasks complete / incomplete
+- 🔍 Filter by priority and status (pending / completed)
+- 📋 Tasks sorted by due date (earliest first)
+- ☁️ Cloud Firestore for real-time data sync
+- 🎨 Clean Material Design UI, responsive on Android and iOS
+
+---
+
+## Architecture
+
+This app follows **Clean Architecture** with three layers:
+lib/
+├── core/                  # Constants, theme, utilities
+├── data/                  # Models, Firestore data sources, repository implementations
+├── domain/                # Entities, abstract repository interfaces, use cases
+└── presentation/          # BLoC, pages, widgets
+
+State management is handled with **flutter_bloc**. Dependency injection uses **get_it + injectable**.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| UI | Flutter + Material 3 |
+| State management | flutter_bloc / BLoC pattern |
+| Auth | Firebase Authentication |
+| Database | Cloud Firestore |
+| DI | get_it + injectable |
+| Navigation | go_router |
+| Architecture | Clean Architecture |
+
+---
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
+- Flutter SDK `>=3.4.0`
+- A Firebase project with **Authentication** (email/password) and **Firestore** enabled
 
-A few resources to get you started if this is your first Flutter project:
+### Setup
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+1. Clone the repo
+```bash
+   git clone https://github.com/Adithi20122004/TaskFlow_flutter.git
+   cd TaskFlow_flutter
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Add your Firebase config files:
+   - Android: place `google-services.json` in `android/app/`
+   - iOS: place `GoogleService-Info.plist` in `ios/Runner/`
+
+3. Install dependencies and run code generation
+```bash
+   flutter pub get
+   flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+4. Run the app
+```bash
+   flutter run
+```
+
+### Firestore Security Rules
+
+Make sure your Firestore rules only allow users to access their own tasks:
+rules_version = '2';
+service cloud.firestore {
+match /databases/{database}/documents {
+match /tasks/{taskId} {
+allow read, write: if request.auth != null
+&& request.auth.uid == resource.data.userId;
+allow create: if request.auth != null
+&& request.auth.uid == request.resource.data.userId;
+}
+match /users/{userId} {
+allow read, write: if request.auth != null
+&& request.auth.uid == userId;
+}
+}
+}
+
+---
+
+## Project Structure
+lib/
+├── core/
+│   ├── constants/         # App strings, route names, Firestore collection names
+│   ├── theme/             # AppTheme, AppColors
+│   └── utils/             # Validators, date formatters
+├── data/
+│   ├── models/            # TaskModel, UserModel (Firestore serialization)
+│   └── repositories/      # AuthRepositoryImpl, TaskRepositoryImpl
+├── domain/
+│   ├── entities/          # TaskEntity, UserEntity
+│   ├── repositories/      # Abstract interfaces
+│   └── usecases/          # (optional use case wrappers)
+└── presentation/
+├── auth/
+│   ├── bloc/           # AuthBloc, AuthEvent, AuthState
+│   ├── pages/          # LoginPage, RegisterPage
+│   └── widgets/        # AuthTextField, etc.
+└── tasks/
+├── bloc/           # TaskBloc, TaskEvent, TaskState
+├── pages/          # HomePage, AddTaskPage, TaskDetailPage
+└── widgets/        # TaskCard, FilterChips, PriorityBadge
+
+---
+
+## Author
+
+**Adithi**
+GitHub: https://github.com/Adithi20122004
