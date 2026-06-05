@@ -8,6 +8,8 @@ A task management app for gig workers, built with **Flutter**, **Firebase**, and
 ## Live Demo
 🌐https://deluxe-daifuku-16c51f.netlify.app
 
+🎥 https://youtube.com/shorts/lxZvOyY0l30?feature=share
+
 ## Screenshots
 
 | Login | Home | Add Task | Task Detail |
