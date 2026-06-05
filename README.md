@@ -5,12 +5,14 @@ A task management app for gig workers, built with **Flutter**, **Firebase**, and
 > Built as part of the WhatBytes Flutter Developer Intern assignment.
 
 ---
+## Live Demo
+🌐https://deluxe-daifuku-16c51f.netlify.app
 
 ## Screenshots
 
 | Login | Home | Add Task | Task Detail |
 |-------|------|----------|-------------|
-| ![login](assets/images/screenshot_login.png) | ![home](assets/images/screenshot_home.png) | ![add](assets/images/screenshot_add.png) | ![detail](assets/images/screenshot_detail.png) |
+| ![login](assets/images/login.jpeg) | ![signup](assets/images/signup.jpeg) | ![add](assets/images/new_task.jpeg) | ![detail](assets/images/task_list.jpeg) | ![delete](assets/images/delete_task.jpeg)
 
 ---
 
