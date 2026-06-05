@@ -34,14 +34,19 @@ class ProfileScreen extends StatelessWidget {
                   if (user != null) ...[
                     Text(
                       user.email,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                      style: const TextStyle(
+    color: Colors.white,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  ),
+),
                     const SizedBox(height: 6),
                     Text(
                       AppStrings.signedInAs,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColors.textTertiary,
-                          ),
+                      style: const TextStyle(
+                        color: AppColors.textTertiary,
+                        fontSize: 13,
+                      ),
                     ),
                   ],
                   const SizedBox(height: 40),

@@ -10,19 +10,19 @@ import 'package:gig_tasks/features/tasks/domain/entities/task_entity.dart';
 import 'package:gig_tasks/features/tasks/presentation/bloc/filter_bloc.dart';
 import 'package:gig_tasks/features/tasks/presentation/bloc/task_bloc.dart';
 import 'package:gig_tasks/features/tasks/presentation/screens/create_edit_task_screen.dart';
-import 'package:gig_tasks/features/tasks/presentation/screens/profile_screen.dart';
 import 'package:gig_tasks/features/tasks/presentation/screens/task_detail_screen.dart';
 import 'package:gig_tasks/features/tasks/presentation/screens/task_list_screen.dart';
 import 'package:gig_tasks/injection_container.dart';
 
-// Shared task bloc instance — lives as long as the tasks shell is alive
 TaskBloc? _taskBlocInstance;
 FilterBloc? _filterBlocInstance;
 
 GoRouter createRouter(AuthBloc authBloc) {
+  final notifier = _AuthNotifier(authBloc);
+
   return GoRouter(
     initialLocation: '/splash',
-    refreshListenable: GoRouterAuthNotifier(authBloc),
+    refreshListenable: notifier,
     redirect: (context, state) {
       final authState = authBloc.state;
       final location = state.uri.toString();
@@ -35,13 +35,12 @@ GoRouter createRouter(AuthBloc authBloc) {
           authState is AuthLoginSuccess ||
           authState is AuthRegisterSuccess;
 
-      final isOnAuth =
-          location == '/login' || location == '/register';
-
-      if (!isAuthenticated && !isOnAuth) return '/login';
-      if (isAuthenticated && isOnAuth) return '/tasks';
-      if (isAuthenticated && location == '/splash') return '/tasks';
-      if (!isAuthenticated && location == '/splash') return '/login';
+      if (!isAuthenticated && location != '/login' && location != '/register') {
+        return '/login';
+      }
+      if (isAuthenticated && (location == '/login' || location == '/register' || location == '/splash')) {
+        return '/tasks';
+      }
 
       return null;
     },
@@ -58,13 +57,10 @@ GoRouter createRouter(AuthBloc authBloc) {
         path: '/register',
         builder: (_, __) => const RegisterScreen(),
       ),
-
-      // Tasks shell — all task routes share the same BLoC instances
       ShellRoute(
         builder: (context, state, child) {
           _taskBlocInstance ??= sl<TaskBloc>();
           _filterBlocInstance ??= sl<FilterBloc>();
-
           return MultiBlocProvider(
             providers: [
               BlocProvider<TaskBloc>.value(value: _taskBlocInstance!),
@@ -98,31 +94,24 @@ GoRouter createRouter(AuthBloc authBloc) {
           ),
         ],
       ),
-
-      GoRoute(
-        path: '/profile',
-        builder: (_, __) => const ProfileScreen(),
-      ),
     ],
-    errorBuilder: (_, state) =>
-        _ErrorScreen(error: state.error.toString()),
+    errorBuilder: (_, state) => _ErrorScreen(error: state.error.toString()),
   );
 }
 
-class GoRouterAuthNotifier extends ChangeNotifier {
-  final AuthBloc _authBloc;
-
-  GoRouterAuthNotifier(AuthBloc authBloc) : _authBloc = authBloc {
-    _authBloc.stream.listen((state) {
-      if (state is! AuthInitial && state is! AuthLoading) {
-        // Reset task blocs on logout so next login gets fresh instances
-        if (state is AuthUnauthenticated || state is AuthLogoutSuccess) {
-          _taskBlocInstance?.close();
-          _taskBlocInstance = null;
-          _filterBlocInstance?.close();
-          _filterBlocInstance = null;
-        }
-        notifyListeners();
+class _AuthNotifier extends ChangeNotifier {
+  _AuthNotifier(AuthBloc authBloc) {
+    authBloc.stream.listen((state) {
+      if (state is AuthUnauthenticated || state is AuthLogoutSuccess) {
+        _taskBlocInstance?.close();
+        _taskBlocInstance = null;
+        _filterBlocInstance?.close();
+        _filterBlocInstance = null;
+      }
+      if (state is! AuthLoading) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (hasListeners) notifyListeners();
+        });
       }
     });
   }
@@ -179,10 +168,7 @@ class _SplashScreenState extends State<_SplashScreen> {
             const SizedBox(height: 8),
             const Text(
               'Get things done.',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white70,
-              ),
+              style: TextStyle(fontSize: 15, color: Colors.white70),
             ),
             const SizedBox(height: 40),
             const CircularProgressIndicator(

@@ -36,6 +36,8 @@ class _AuthTextFieldState extends State<AuthTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return TextFormField(
       controller: widget.controller,
       focusNode: widget.focusNode,
@@ -45,6 +47,11 @@ class _AuthTextFieldState extends State<AuthTextField> {
       validator: widget.validator,
       onFieldSubmitted: widget.onFieldSubmitted,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      // ✅ THIS is the fix — text color is now set correctly
+      style: TextStyle(
+        color: isDark ? Colors.white : AppColors.textPrimary,
+        fontSize: 15,
+      ),
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hint,

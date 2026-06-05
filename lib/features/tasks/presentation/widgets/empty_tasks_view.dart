@@ -19,7 +19,7 @@ class EmptyTasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.fromLTRB(40, 40, 40, 120),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

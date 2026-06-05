@@ -27,7 +27,11 @@ class AppTheme {
       textTheme: AppTextStyles.textTheme,
       scaffoldBackgroundColor:
           isDark ? AppColors.darkBackground : AppColors.background,
-
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColors.primary,
+        selectionColor: AppColors.primary.withValues(alpha: 0.3),
+        selectionHandleColor: AppColors.primary,
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         foregroundColor:
@@ -43,7 +47,6 @@ class AppTheme {
           color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
         ),
       ),
-
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -52,7 +55,6 @@ class AppTheme {
         color: isDark ? AppColors.darkSurface : AppColors.surface,
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       ),
-
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
@@ -70,7 +72,6 @@ class AppTheme {
           ),
         ),
       ),
-
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primary,
@@ -81,18 +82,16 @@ class AppTheme {
           ),
         ),
       ),
-
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
           textStyle: AppTextStyles.textTheme.labelLarge,
         ),
       ),
-
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: isDark
-            ? AppColors.darkSurfaceVariant
+            ? const Color(0xFF2A2A4A)
             : AppColors.surfaceVariant,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
@@ -119,26 +118,25 @@ class AppTheme {
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: AppColors.error, width: 2),
         ),
-        labelStyle: AppTextStyles.textTheme.bodyMedium?.copyWith(
-          color: isDark
-              ? AppColors.darkTextSecondary
-              : AppColors.textSecondary,
+        labelStyle: TextStyle(
+          color: isDark ? Colors.white70 : AppColors.textSecondary,
+          fontSize: 14,
         ),
-        hintStyle: AppTextStyles.textTheme.bodyMedium?.copyWith(
-          color: AppColors.textTertiary,
+        hintStyle: TextStyle(
+          color: isDark ? Colors.white38 : AppColors.textTertiary,
+          fontSize: 14,
         ),
-        errorStyle: AppTextStyles.textTheme.bodySmall?.copyWith(
+        errorStyle: const TextStyle(
           color: AppColors.error,
+          fontSize: 12,
         ),
       ),
-
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.textOnPrimary,
         elevation: 4,
         shape: CircleBorder(),
       ),
-
       chipTheme: ChipThemeData(
         backgroundColor: isDark
             ? AppColors.darkSurfaceVariant
@@ -151,13 +149,11 @@ class AppTheme {
           side: BorderSide.none,
         ),
       ),
-
       dividerTheme: DividerThemeData(
         color: isDark ? AppColors.darkBorder : AppColors.border,
         thickness: 1,
         space: 0,
       ),
-
       snackBarTheme: SnackBarThemeData(
         backgroundColor: isDark
             ? AppColors.darkSurfaceVariant
@@ -171,27 +167,29 @@ class AppTheme {
         behavior: SnackBarBehavior.floating,
         elevation: 4,
       ),
-
       bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor:
-            isDark ? AppColors.darkSurface : AppColors.surface,
+        backgroundColor: isDark ? const Color(0xFF1E1E3A) : AppColors.surface,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
         ),
         elevation: 0,
       ),
-
       dialogTheme: DialogThemeData(
-        backgroundColor:
-            isDark ? AppColors.darkSurface : AppColors.surface,
+        backgroundColor: isDark ? const Color(0xFF1E1E3A) : AppColors.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        elevation: 0,
-        titleTextStyle: AppTextStyles.textTheme.titleLarge,
-        contentTextStyle: AppTextStyles.textTheme.bodyMedium,
+        elevation: 8,
+        titleTextStyle: TextStyle(
+          color: isDark ? Colors.white : AppColors.textPrimary,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+        contentTextStyle: TextStyle(
+          color: isDark ? Colors.white70 : AppColors.textSecondary,
+          fontSize: 14,
+        ),
       ),
-
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor:
             isDark ? AppColors.darkSurface : AppColors.surface,
@@ -202,7 +200,6 @@ class AppTheme {
         type: BottomNavigationBarType.fixed,
         elevation: 0,
       ),
-
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: AppColors.primary,
       ),

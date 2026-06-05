@@ -147,6 +147,12 @@ if (userId == null) return;
                     controller: _titleController,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : AppColors.textPrimary,
+                      fontSize: 15,
+                    ),
                     decoration: const InputDecoration(
                       hintText: AppStrings.titleHint,
                     ),
@@ -160,6 +166,12 @@ if (userId == null) return;
                     maxLines: 3,
                     textInputAction: TextInputAction.done,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : AppColors.textPrimary,
+                      fontSize: 15,
+                    ),
                     decoration: const InputDecoration(
                       hintText: AppStrings.descriptionHint,
                     ),
@@ -200,10 +212,11 @@ if (userId == null) return;
   }
 
   Widget _buildSectionLabel(BuildContext context, String label) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Text(
       label,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: AppColors.textSecondary,
+            color: isDark ? Colors.white70 : AppColors.textSecondary,
           ),
     );
   }

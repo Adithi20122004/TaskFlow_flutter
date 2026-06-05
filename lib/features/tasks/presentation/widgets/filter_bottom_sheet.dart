@@ -63,13 +63,16 @@ class FilterBottomSheet extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, FilterState state) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'Filter & Sort',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: isDark ? Colors.white : AppColors.textPrimary,
+              ),
+          ),
         if (state.hasActiveFilters)
           TextButton(
             onPressed: () {
@@ -82,11 +85,12 @@ class FilterBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionLabel(BuildContext context, String label) {
+ Widget _buildSectionLabel(BuildContext context, String label) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Text(
       label,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: AppColors.textSecondary,
+            color: isDark ? Colors.white70 : AppColors.textSecondary,
           ),
     );
   }
@@ -167,25 +171,37 @@ class _FilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final activeColor = color ?? AppColors.primary;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding:const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: selected ? activeColor : AppColors.surfaceVariant,
-          borderRadius: BorderRadius.circular(8),
+          color: selected
+            ? activeColor
+            : isDark
+                ? const Color(0xFF2A2A4A)
+                : AppColors.surfaceVariant,
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: selected ? activeColor : AppColors.border,
+            color: selected
+              ? activeColor
+              : isDark
+                  ? const Color(0xFF3A3A5A)
+                  : AppColors.border,
           ),
         ),
         child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: selected ? AppColors.textOnPrimary : AppColors.textSecondary,
+        label,
+        style: TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: selected
+              ? AppColors.textOnPrimary
+              : isDark
+                  ? Colors.white70
+                  : AppColors.textSecondary,
           ),
         ),
       ),
